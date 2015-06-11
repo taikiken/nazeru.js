@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+  <meta charset="UTF-8">
+  <title>Nazeru</title>
+  <script src="nazeru.js"></script>
+</head>
+<body>
+
+<div id="button" style="width: 200px; height: 100px; background-color: #f00;"></div>
+
+<p id="test"></p>
+<script>
+( function ( window ) {
+
+  "use strict";
+
+  var
+    document = window.document,
+    Nazeru = window.Nazeru;
+
+  function touchEnd ( event ) {
+
+    console.log( "**** touchEnd **** ", event );
+  }
+
+  var touch = document.getElementById( "button" );
+
+  var nazeru = new Nazeru( touch, {touchEnd: touchEnd} );
+  nazeru.init();
+
+  console.log( 'nazeru.touchStart ', nazeru.touchStart );
+  console.log( 'nazeru.element ', nazeru.element );
+
+//  nazeru.element = document.getElementById( "test" );
+//
+//  console.log( 'nazeru.element ', nazeru.element );
+
+}( window ) );
+</script>
+</body>
+</html>
