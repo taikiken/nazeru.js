@@ -115,36 +115,88 @@
     document = window.document;
 
   window.Nazeru = ( function () {
+    var
+      /**
+       * document.documentElement (&lt;html&gt;)
+       * @property _element
+       * @static
+       * @type {Element}
+       * @private
+       */
+      _element = document.documentElement,
+      _abs = Math.abs;
 
     /**
      * @class Nazeru
      * @param {Element} element
-     * @param {Object} option {{ threshold: number, touchStart: function, touchMove: function, touchEnd: function } }}
+     * @param {Object} option {{ threshold: number, touchStart: function, touchMove: function, touchEnd: function, moveCanceled: function, endCanceled: function }}
      * @constructor
      */
     function Nazeru ( element, option ) {
 
       var
-        threshold;
+        boundStart = touchStart.bind( this),
+        boundMove = touchMove.bind( this),
+        boundEnd = touchEnd.bind( this),
+        defaultThreshold = 50,
+        threshold,
+        isMove,
+        isStart,
+        isEnd,
+        isCancelMove,
+        isCancelEnd,
+        isAny,
+        startY,
+        startTop,
+        prevY,
+        prevTop;
 
-      if ( typeof option === &quot;undefined&quot; ) {
+      function isNumber ( n ) {
+
+        return Object.prototype.toString.call( n ) === &#x27;[object Number]&#x27;;
+
+      }
+
+      if ( typeof option === &quot;undefined&quot; || option === null ) {
         // option undefined
         option = {
-          threshold: 50,
+          threshold: defaultThreshold,
           touchStart: null,
           touchMove: null,
-          touchEnd: null
+          touchEnd: null,
+          moveCanceled: null,
+          endCanceled: null
         };
 
       } else {
 
         threshold = option.threshold;
 
-        if ( typeof threshold === &quot;undefined&quot; || !threshold || Object.prototype.toString.call( threshold ) !== &#x27;[object Number]&#x27; ) {
+        // number check
+        if ( !isNumber( threshold ) ) {
 
-          option.threshold = 50;
+          option.threshold = defaultThreshold;
 
         }
+
+      }
+
+      // threshold set
+      threshold = option.threshold;
+
+      // 処理判定
+      isStart = typeof option.touchStart === &quot;function&quot;;
+      isMove = typeof option.touchMove === &quot;function&quot;;
+      isEnd = typeof option.touchEnd === &quot;function&quot;;
+      isCancelMove = typeof option.moveCanceled === &quot;function&quot;;
+      isCancelEnd = typeof option.endCanceled === &quot;function&quot;;
+
+      isAny = isStart || isMove || isEnd || isCancelMove || isCancelEnd;
+
+      function scrollTop () {
+
+        // http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
+        return ( window.pageYOffset || _element.scrollTop)  - ( _element.clientTop || 0 );
 
       }
 
@@ -156,69 +208,289 @@
        */
       function touchStart ( event ) {
 
-        console.log( &quot;touchStart &quot;, event );
+        if ( isMove || isCancelMove ) {
+
+          element.addEventListener( &quot;touchmove&quot;, boundMove, false );
+
+        }
+
+        if ( isEnd || isCancelEnd ) {
+
+          element.addEventListener( &quot;touchend&quot;, boundEnd, false );
+
+        }
+
+        startY = event.changedTouches[ 0 ].pageY;
+        startTop = scrollTop();
+        prevY = startY;
+        prevTop = startTop;
+
+        if ( isStart ) {
+
+          event.y = startY;
+          event.top = startTop;
+
+          option.touchStart( event );
+
+        }
+
+      }
+      /**
+       * element touchmove event handler
+       * @method touchMove
+       * @param {Event} event
+       * @private
+       */
+      function touchMove ( event ) {
+
+        var
+          y = event.changedTouches[ 0 ].pageY,
+          top = scrollTop();
+
+        event.y = y;
+        event.top = top;
+        event.movedY = prevY - y;
+        event.movedTop = prevTop - top;
+
+        prevY = y;
+        prevTop = top;
+
+        if ( _abs( y - prevY ) &gt;= threshold || _abs( top - prevTop ) &gt;= threshold ) {
+
+          // なにもしない
+          event.preventDefault();
+
+          if ( isCancelMove ) {
+
+            option.moveCanceled( event );
+
+          }
+
+        } else {
+
+          if ( isMove ) {
+
+            option.touchMove( event );
+
+          }
+
+        }
+
+      }
+      /**
+       * element touchend event handler
+       * @method touchEnd
+       * @param {Event} event
+       * @private
+       */
+      function touchEnd ( event ) {
+
+        var
+          y = event.changedTouches[ 0 ].pageY,
+          top = scrollTop();
+
+        event.y = y;
+        event.top = top;
+        event.movedY = startY - y;
+        event.movedTop = startTop - top;
+
+        element.removeEventListener( &quot;touchmove&quot;, boundMove );
+        element.removeEventListener( &quot;touchend&quot;, boundEnd );
+
+        if ( _abs( y - startY ) &gt;= threshold || _abs( top - startTop ) &gt;= threshold ) {
+
+          // なにもしない
+
+          if ( isCancelEnd ) {
+
+            option.endCanceled( event );
+
+          }
+
+        } else {
+
+          if ( isEnd ) {
+
+            option.touchEnd( event );
+
+          }
+
+        }
 
       }
 
+      // instance property
       Object.defineProperties(
         this,
         {
 
           /**
+           * read only property, 列挙可, touchevent target Element
            * @property element
-           * @type {Element}
+           * @type {{ value: Element }}
            * @readOnly
            */
           &quot;element&quot;: {
             value: element,
             enumerable: true
           },
-
+          /**
+           * read only property, 列挙可, options
+           * @property option
+           * @type {{ threshold: number, touchStart: function, touchMove: function, touchEnd: function, moveCanceled: function, endCanceled: function }}
+           * @readOnly
+           */
           &quot;option&quot;: {
             value: option,
             enumerable: true
           },
+          /**
+           * getter / setter threshold, require Number
+           * @property threshold
+           * @type {{get: Function, set: Function}}
+           */
+          &quot;threshold&quot;: {
+            get: function () {
 
+              return threshold;
+
+            },
+            set: function ( n ) {
+
+              if ( isNumber( n ) ) {
+
+                threshold = n;
+                option.threshold = n;
+
+              } else {
+
+                console.warn( &quot;threshold is number require. &quot; + n );
+
+              }
+
+            },
+            enumerable: true
+          },
+          /**
+           * read only property, 列挙可, toucheventを監視するか否かの真偽値
+           * @property enable
+           * @type {{value: Boolean}}
+           * @private
+           */
+          &quot;isAny&quot;: {
+            value: isAny
+          },
+          /**
+           * bound function, touchStart
+           * @property boundStart
+           * @type {{value: Function}}
+           * @private
+           */
           &quot;boundStart&quot;: {
-            value: touchStart.bind( this )
+            value: boundStart
+          },
+          /**
+           * bound function, touchMove
+           * @property boundMove
+           * @type {{value: Function}}
+           * @private
+           */
+          &quot;boundMove&quot;: {
+            value: boundMove
+          },
+          /**
+           * bound function, touchEnd
+           * @property boundEnd
+           * @type {{value: Function}}
+           * @private
+           */
+          &quot;boundEnd&quot;: {
+            value: boundEnd
           }
 
         }
       );
+
     }
 
     var p = Nazeru.prototype;
     p.constructor = Nazeru;
 
+    /**
+     * @method init
+     */
     p.init = function () {
 
       this.activate();
 
     };
-
+    /**
+     * @method activate
+     */
     p.activate = function () {
 
-      var
-        option = this.option;
-
-      if (
-        typeof option.touchStart === &quot;function&quot; ||
-        typeof option.touchMove === &quot;function&quot; ||
-        typeof option.touchEnd === &quot;function&quot;
-      ) {
+      if ( this.isAny ) {
 
         this.element.addEventListener( &quot;touchstart&quot;, this.boundStart, false );
 
       }
 
     };
+    /**
+     * @method abort
+     */
+    p.abort = function () {
 
+      this.element.removeEventListener( &quot;touchstart&quot;, this.boundStart );
+
+    };
 
     return Nazeru;
 
   }() );
 
 }( window ) );
+
+/*=========================
+ jQuery &amp; Zepto Plugins
+ ===========================*/
+if (window.jQuery || window.Zepto) {
+  (function ($) {
+    &#x27;use strict&#x27;;
+    var
+      Nazeru = window.Nazeru;
+
+    $.fn.nazeru = function (params) {
+
+      $(this).each( function (index,element) {
+
+        var nazeru = new Nazeru(element, params);
+        nazeru.init();
+        $(this).data(&#x27;nazeru&#x27;, nazeru);
+        //return nazeru;
+
+      } );
+
+      return this;
+
+    };
+  })(window.jQuery || window.Zepto);
+}
+
+// component
+if (typeof(module) !== &#x27;undefined&#x27;)
+{
+  module.exports = window.Nazeru;
+}
+
+// requirejs support
+if (typeof define === &#x27;function&#x27; &amp;&amp; define.amd) {
+  define([], function () {
+    &#x27;use strict&#x27;;
+    return window.Nazeru;
+  });
+}
+
     </pre>
 </div>
 

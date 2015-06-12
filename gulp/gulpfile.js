@@ -84,7 +84,7 @@ gulp.task('serve', function () {
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-      baseDir: [ tmp, example, dir.libs ],
+      baseDir: [ tmp, example, dir.libs, dir.dependencies ],
       directory: true
     },
     // additional option sever launch by ip address

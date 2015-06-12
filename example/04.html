@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>Nazeru</title>
+  <script src="jquery-2.1.4.min.js"></script>
+  <script src="nazeru.js"></script>
+</head>
+<body>
+
+<a href="#" class="button" style="display: block;width: 200px; height: 100px; background-color: #f00; margin-bottom: 10px;"></a>
+<a href="#" class="button" style="display: block;width: 200px; height: 100px; background-color: #f00; margin-bottom: 10px;"></a>
+<a href="#" class="button" style="display: block;width: 200px; height: 100px; background-color: #f00; margin-bottom: 10px;"></a>
+<a href="#" class="button" style="display: block;width: 200px; height: 100px; background-color: #f00;"></a>
+
+<p id="test" style="height: 1000px; margin-top: 30px; border: 1px solid #ccc;"></p>
+<script>
+( function ( window ) {
+
+  "use strict";
+
+  var
+    document = window.document,
+    Nazeru = window.Nazeru;
+
+  function touchEnd ( event ) {
+
+    console.log( "**** touchEnd **** ", event );
+    event.preventDefault();
+    event.stopPropagation();
+
+  }
+
+//  var button = document.getElementById( "button" );
+//  var test = document.getElementById( "test" );
+//
+//  var nazeru = new Nazeru( button, {touchEnd: touchEnd} );
+//  nazeru.init();
+//
+//  nazeru.threshold = "a";
+
+  $( ".button" ).nazeru( {touchEnd: touchEnd} );
+
+}( window ) );
+</script>
+</body>
+</html>

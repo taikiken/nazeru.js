@@ -144,7 +144,8 @@ gulp.task( 'build', function () {
   runSequence(
 
     'js-hint',
-    'js-move',
+    'js-copy',
+    'js-clean',
     [
       'js-min',
       'js-api'

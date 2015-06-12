@@ -2,14 +2,15 @@
 <html>
 <head lang="ja">
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
   <title>Nazeru</title>
   <script src="nazeru.js"></script>
 </head>
 <body>
 
-<div id="button" style="width: 200px; height: 100px; background-color: #f00;"></div>
+<a href="#" id="button" style="display: block;width: 200px; height: 100px; background-color: #f00;"></a>
 
-<p id="test"></p>
+<p id="test" style="height: 1000px; margin-top: 30px; border: 1px solid #ccc;"></p>
 <script>
 ( function ( window ) {
 
@@ -22,6 +23,9 @@
   function touchEnd ( event ) {
 
     console.log( "**** touchEnd **** ", event );
+    event.preventDefault();
+    event.stopPropagation();
+
   }
 
   var button = document.getElementById( "button" );
@@ -30,25 +34,7 @@
   var nazeru = new Nazeru( button, {touchEnd: touchEnd} );
   nazeru.init();
 
-  var
-    html = "",
-    key, value;
-
-  for( key in nazeru ) {
-
-    if ( nazeru.hasOwnProperty( key ) ) {
-
-      value = nazeru[ key ];
-      html += key + ": " + value + ", " + typeof nazeru[ key ] + "<br>";
-
-    }
-  }
-
-  nazeru.threshold = 30;
-  html += "threshold: " + nazeru.threshold + ", " + typeof nazeru.threshold + "<br>";
-
-  test.innerHTML = html;
-
+  nazeru.threshold = "a";
 
 }( window ) );
 </script>
