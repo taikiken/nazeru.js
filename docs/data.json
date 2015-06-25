@@ -1,0 +1,269 @@
+{
+    "project": {
+        "name": "nazeru.js",
+        "description": "touchevent helper.",
+        "url": "https://github.com/taikiken/nazeru.js"
+    },
+    "files": {
+        "src/nazeru.js": {
+            "name": "src/nazeru.js",
+            "modules": {
+                "Nazeru": 1
+            },
+            "classes": {
+                "Nazeru": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Nazeru": {
+            "name": "Nazeru",
+            "submodules": {},
+            "classes": {
+                "Nazeru": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/nazeru.js",
+            "line": 40,
+            "license": "inazumatv.com",
+            "author": "(at)taikiken / http://inazumatv.com",
+            "date": "15/06/11 - 16:37\n\nCopyright (c) 2011-2015 inazumatv.com, inc.\n\nDistributed under the terms of the MIT license.\nhttp://www.opensource.org/licenses/mit-license.html\n\nThis notice shall be included in all copies or substantial portions of the Software.\n\nfor nazeru.js\n\nbuild @@buildTime\nversion @@version\ngit https://github.com/taikiken/nazeru.js"
+        }
+    },
+    "classes": {
+        "Nazeru": {
+            "name": "Nazeru",
+            "shortname": "Nazeru",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Nazeru",
+            "namespace": "",
+            "file": "src/nazeru.js",
+            "line": 40,
+            "description": "スクロール(touchmove)を可能にするtouchend bind Element\n<br>依存ファイルはありません。\n<br>\n<br>jQuery pluginとしても機能します。",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "",
+                    "type": "Element"
+                },
+                {
+                    "name": "option",
+                    "description": "{{ threshold: number, touchStart: function, touchMove: function, touchEnd: function, moveCanceled: function, endCanceled: function }}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n\n     <a href=\"#\" id=\"touch-example\">example</a>\n\n     function touchEnd ( event ) {\n\n       event.stopPropagation();\n       event.preventDefault();\n\n       // something do\n\n     }\n\n     var nazeru = new Nazeru( document.getElementId( \"touch-example\", { touchEnd: touchEnd } ) );\n     nazeru.init();\n\n     // jQuery\n     $( \"#touch-example\" ).nazeru( { touchEnd: touchEnd } );"
+            ],
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/nazeru.js",
+            "line": 30,
+            "description": "document.documentElement, eq html tag",
+            "itemtype": "property",
+            "name": "_element",
+            "static": 1,
+            "type": "{Element}",
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 132,
+            "itemtype": "method",
+            "name": "scrollTop",
+            "return": {
+                "description": "scrollTop値を返します",
+                "type": "Number"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 144,
+            "description": "element touchstart event handler",
+            "itemtype": "method",
+            "name": "touchStart",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Event"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 179,
+            "description": "element touchmove event handler",
+            "itemtype": "method",
+            "name": "touchMove",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Event"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 221,
+            "description": "element touchend event handler",
+            "itemtype": "method",
+            "name": "touchEnd",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Event"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 268,
+            "description": "read only property, 列挙可, touchevent target Element",
+            "itemtype": "property",
+            "name": "element",
+            "type": "{{ value: Element }}",
+            "readonly": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 278,
+            "description": "read only property, 列挙可, options",
+            "itemtype": "property",
+            "name": "option",
+            "type": "{{ threshold: number, touchStart: function, touchMove: function, touchEnd: function, moveCanceled: function, endCanceled: function }}",
+            "readonly": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 288,
+            "description": "getter / setter threshold, require Number",
+            "itemtype": "property",
+            "name": "threshold",
+            "type": "{{get: Function, set: Function}}",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 315,
+            "description": "read only property, 列挙可, toucheventを監視するか否かの真偽値",
+            "itemtype": "property",
+            "name": "enable",
+            "type": "{{value: Boolean}}",
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 324,
+            "description": "bound function, touchStart",
+            "itemtype": "property",
+            "name": "boundStart",
+            "type": "{{value: Function}}",
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 333,
+            "description": "bound function, touchMove",
+            "itemtype": "property",
+            "name": "boundMove",
+            "type": "{{value: Function}}",
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 342,
+            "description": "bound function, touchEnd",
+            "itemtype": "property",
+            "name": "boundEnd",
+            "type": "{{value: Function}}",
+            "access": "private",
+            "tagname": "",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 360,
+            "description": "初期処理、element へ touchstart を bind します",
+            "itemtype": "method",
+            "name": "init",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 369,
+            "description": "element へ touchstart を bind します",
+            "itemtype": "method",
+            "name": "activate",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        },
+        {
+            "file": "src/nazeru.js",
+            "line": 382,
+            "description": "element から touchstart を unbind します",
+            "itemtype": "method",
+            "name": "abort",
+            "class": "Nazeru",
+            "module": "Nazeru"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: license",
+            "line": " src/nazeru.js:1"
+        },
+        {
+            "message": "unknown tag: date",
+            "line": " src/nazeru.js:1"
+        }
+    ]
+}

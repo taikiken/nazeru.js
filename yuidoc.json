@@ -1,0 +1,11 @@
+{
+  "name": "nazeru.js",
+  "description": "touchevent helper.",
+  "url": "https://github.com/taikiken/nazeru.js",
+  "options": {
+    "linkNatives": "true",
+    "attributesEmit": "true",
+    "outdir": "./docs",
+    "paths": ["./src"]
+  }
+}

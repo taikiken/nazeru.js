@@ -12,8 +12,9 @@
  *
  * for nazeru.js
  *
- * @build 2015-06-12 17:41:19
- * @version 0.2.1
+ * build 2015-06-25 19:38:35
+ * version 0.2.3
+ * git https://github.com/taikiken/nazeru.js
  *
  * @module Nazeru
  */
@@ -27,7 +28,7 @@
   window.Nazeru = ( function () {
     var
       /**
-       * document.documentElement (<html>)
+       * document.documentElement, eq html tag
        * @property _element
        * @static
        * @type {Element}
@@ -37,9 +38,34 @@
       _abs = Math.abs;
 
     /**
+     * スクロール(touchmove)を可能にするtouchend bind Element
+     * <br>依存ファイルはありません。
+     * <br>
+     * <br>jQuery pluginとしても機能します。
+     *
      * @class Nazeru
      * @param {Element} element
      * @param {Object} option {{ threshold: number, touchStart: function, touchMove: function, touchEnd: function, moveCanceled: function, endCanceled: function }}
+     *
+     * @example
+     *
+     *      <a href="#" id="touch-example">example</a>
+     *
+     *      function touchEnd ( event ) {
+     *
+     *        event.stopPropagation();
+     *        event.preventDefault();
+     *
+     *        // something do
+     *
+     *      }
+     *
+     *      var nazeru = new Nazeru( document.getElementId( "touch-example", { touchEnd: touchEnd } ) );
+     *      nazeru.init();
+     *
+     *      // jQuery
+     *      $( "#touch-example" ).nazeru( { touchEnd: touchEnd } );
+     *
      * @constructor
      */
     function Nazeru ( element, option ) {
@@ -67,8 +93,8 @@
 
       }
 
-      if ( typeof option === "undefined" || option === null ) {
-        // option undefined
+      if ( typeof option === "undefined" || option === null || !option ) {
+        // option undefined or null or ""
         option = {
           threshold: defaultThreshold,
           touchStart: null,
@@ -327,6 +353,7 @@
     p.constructor = Nazeru;
 
     /**
+     * 初期処理、element へ touchstart を bind します
      * @method init
      */
     p.init = function () {
@@ -335,6 +362,7 @@
 
     };
     /**
+     * element へ touchstart を bind します
      * @method activate
      */
     p.activate = function () {
@@ -347,6 +375,7 @@
 
     };
     /**
+     * element から touchstart を unbind します
      * @method abort
      */
     p.abort = function () {
@@ -365,38 +394,45 @@
  jQuery & Zepto Plugins
  ===========================*/
 if (window.jQuery || window.Zepto) {
-  (function ($) {
+  ( function ( $ ) {
+
     'use strict';
+
     var
       Nazeru = window.Nazeru;
 
-    $.fn.nazeru = function (params) {
+    $.fn.nazeru = function ( params ) {
 
-      $(this).each( function (index,element) {
+      $(this).each( function ( index, element ) {
 
-        var nazeru = new Nazeru(element, params);
+        var nazeru = new Nazeru( element, params );
+
         nazeru.init();
-        $(this).data('nazeru', nazeru);
-        //return nazeru;
+        $( this ).data( 'nazeru', nazeru );
 
       } );
 
       return this;
 
     };
-  })(window.jQuery || window.Zepto);
+  })( window.jQuery || window.Zepto );
 }
 
 // component
-if (typeof(module) !== 'undefined')
-{
-  module.exports = window.Nazeru;
+if ( typeof( module ) !== 'undefined' ) {
+
+  window.module.exports = window.Nazeru;
+
 }
 
 // requirejs support
-if (typeof define === 'function' && define.amd) {
-  define([], function () {
+if ( typeof define === 'function' && window.define.amd ) {
+
+  window.define( [], function () {
+
     'use strict';
     return window.Nazeru;
-  });
+
+  } );
+
 }

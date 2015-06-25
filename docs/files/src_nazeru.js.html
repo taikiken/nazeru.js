@@ -1,3 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/nazeru.js - nazeru.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="nazeru.js" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Nazeru.html">Nazeru</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Nazeru.html">Nazeru</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: src/nazeru.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
 /**
  * @license inazumatv.com
  * @author (at)taikiken / http://inazumatv.com
@@ -20,7 +102,7 @@
  */
 ( function ( window ) {
 
-  "use strict";
+  &quot;use strict&quot;;
 
   var
     document = window.document;
@@ -39,9 +121,9 @@
 
     /**
      * スクロール(touchmove)を可能にするtouchend bind Element
-     * <br>依存ファイルはありません。
-     * <br>
-     * <br>jQuery pluginとしても機能します。
+     * &lt;br&gt;依存ファイルはありません。
+     * &lt;br&gt;
+     * &lt;br&gt;jQuery pluginとしても機能します。
      *
      * @class Nazeru
      * @param {Element} element
@@ -49,7 +131,7 @@
      *
      * @example
      *
-     *      <a href="#" id="touch-example">example</a>
+     *      &lt;a href=&quot;#&quot; id=&quot;touch-example&quot;&gt;example&lt;/a&gt;
      *
      *      function touchEnd ( event ) {
      *
@@ -60,11 +142,11 @@
      *
      *      }
      *
-     *      var nazeru = new Nazeru( document.getElementId( "touch-example", { touchEnd: touchEnd } ) );
+     *      var nazeru = new Nazeru( document.getElementId( &quot;touch-example&quot;, { touchEnd: touchEnd } ) );
      *      nazeru.init();
      *
      *      // jQuery
-     *      $( "#touch-example" ).nazeru( { touchEnd: touchEnd } );
+     *      $( &quot;#touch-example&quot; ).nazeru( { touchEnd: touchEnd } );
      *
      * @constructor
      */
@@ -89,12 +171,12 @@
 
       function isNumber ( n ) {
 
-        return Object.prototype.toString.call( n ) === '[object Number]';
+        return Object.prototype.toString.call( n ) === &#x27;[object Number]&#x27;;
 
       }
 
-      if ( typeof option === "undefined" || option === null || !option ) {
-        // option undefined or null or ""
+      if ( typeof option === &quot;undefined&quot; || option === null || !option ) {
+        // option undefined or null or &quot;&quot;
         option = {
           threshold: defaultThreshold,
           touchStart: null,
@@ -121,11 +203,11 @@
       threshold = option.threshold;
 
       // 処理判定
-      isStart = typeof option.touchStart === "function";
-      isMove = typeof option.touchMove === "function";
-      isEnd = typeof option.touchEnd === "function";
-      isCancelMove = typeof option.moveCanceled === "function";
-      isCancelEnd = typeof option.endCanceled === "function";
+      isStart = typeof option.touchStart === &quot;function&quot;;
+      isMove = typeof option.touchMove === &quot;function&quot;;
+      isEnd = typeof option.touchEnd === &quot;function&quot;;
+      isCancelMove = typeof option.moveCanceled === &quot;function&quot;;
+      isCancelEnd = typeof option.endCanceled === &quot;function&quot;;
 
       isAny = isStart || isMove || isEnd || isCancelMove || isCancelEnd;
 
@@ -151,13 +233,13 @@
 
         if ( isMove || isCancelMove ) {
 
-          element.addEventListener( "touchmove", boundMove, false );
+          element.addEventListener( &quot;touchmove&quot;, boundMove, false );
 
         }
 
         if ( isEnd || isCancelEnd ) {
 
-          element.addEventListener( "touchend", boundEnd, false );
+          element.addEventListener( &quot;touchend&quot;, boundEnd, false );
 
         }
 
@@ -196,7 +278,7 @@
         prevY = y;
         prevTop = top;
 
-        if ( _abs( y - prevY ) >= threshold || _abs( top - prevTop ) >= threshold ) {
+        if ( _abs( y - prevY ) &gt;= threshold || _abs( top - prevTop ) &gt;= threshold ) {
 
           // なにもしない
           event.preventDefault();
@@ -235,10 +317,10 @@
         event.movedY = startY - y;
         event.movedTop = startTop - top;
 
-        element.removeEventListener( "touchmove", boundMove );
-        element.removeEventListener( "touchend", boundEnd );
+        element.removeEventListener( &quot;touchmove&quot;, boundMove );
+        element.removeEventListener( &quot;touchend&quot;, boundEnd );
 
-        if ( _abs( y - startY ) >= threshold || _abs( top - startTop ) >= threshold ) {
+        if ( _abs( y - startY ) &gt;= threshold || _abs( top - startTop ) &gt;= threshold ) {
 
           // なにもしない
 
@@ -271,7 +353,7 @@
            * @type {{ value: Element }}
            * @readOnly
            */
-          "element": {
+          &quot;element&quot;: {
             value: element,
             enumerable: true
           },
@@ -281,7 +363,7 @@
            * @type {{ threshold: number, touchStart: function, touchMove: function, touchEnd: function, moveCanceled: function, endCanceled: function }}
            * @readOnly
            */
-          "option": {
+          &quot;option&quot;: {
             value: option,
             enumerable: true
           },
@@ -290,7 +372,7 @@
            * @property threshold
            * @type {{get: Function, set: Function}}
            */
-          "threshold": {
+          &quot;threshold&quot;: {
             get: function () {
 
               return threshold;
@@ -305,7 +387,7 @@
 
               } else {
 
-                console.warn( "threshold is number require. " + n );
+                console.warn( &quot;threshold is number require. &quot; + n );
 
               }
 
@@ -318,7 +400,7 @@
            * @type {{value: Boolean}}
            * @private
            */
-          "isAny": {
+          &quot;isAny&quot;: {
             value: isAny
           },
           /**
@@ -327,7 +409,7 @@
            * @type {{value: Function}}
            * @private
            */
-          "boundStart": {
+          &quot;boundStart&quot;: {
             value: boundStart
           },
           /**
@@ -336,7 +418,7 @@
            * @type {{value: Function}}
            * @private
            */
-          "boundMove": {
+          &quot;boundMove&quot;: {
             value: boundMove
           },
           /**
@@ -345,7 +427,7 @@
            * @type {{value: Function}}
            * @private
            */
-          "boundEnd": {
+          &quot;boundEnd&quot;: {
             value: boundEnd
           }
 
@@ -374,7 +456,7 @@
 
       if ( this.isAny ) {
 
-        this.element.addEventListener( "touchstart", this.boundStart, false );
+        this.element.addEventListener( &quot;touchstart&quot;, this.boundStart, false );
 
       }
 
@@ -385,7 +467,7 @@
      */
     p.abort = function () {
 
-      this.element.removeEventListener( "touchstart", this.boundStart );
+      this.element.removeEventListener( &quot;touchstart&quot;, this.boundStart );
 
     };
 
@@ -396,12 +478,12 @@
 }( window ) );
 
 /*=========================
- jQuery & Zepto Plugins
+ jQuery &amp; Zepto Plugins
  ===========================*/
 if (window.jQuery || window.Zepto) {
   ( function ( $ ) {
 
-    'use strict';
+    &#x27;use strict&#x27;;
 
     var
       Nazeru = window.Nazeru;
@@ -413,7 +495,7 @@ if (window.jQuery || window.Zepto) {
         var nazeru = new Nazeru( element, params );
 
         nazeru.init();
-        $( this ).data( 'nazeru', nazeru );
+        $( this ).data( &#x27;nazeru&#x27;, nazeru );
 
       } );
 
@@ -424,20 +506,39 @@ if (window.jQuery || window.Zepto) {
 }
 
 // component
-if ( typeof( module ) !== 'undefined' ) {
+if ( typeof( module ) !== &#x27;undefined&#x27; ) {
 
   window.module.exports = window.Nazeru;
 
 }
 
 // requirejs support
-if ( typeof define === 'function' && window.define.amd ) {
+if ( typeof define === &#x27;function&#x27; &amp;&amp; window.define.amd ) {
 
   window.define( [], function () {
 
-    'use strict';
+    &#x27;use strict&#x27;;
     return window.Nazeru;
 
   } );
 
 }
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -132,6 +132,7 @@ gulp.task('js-min', function () {
 gulp.task( 'js-api', function () {
 
   return gulp.src( dir.src + '/*.js' )
+    .pipe( $.yuidoc.parser() )
     .pipe( $.yuidoc() )
     .pipe( gulp.dest( dir.docs ) );
 
