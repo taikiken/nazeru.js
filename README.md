@@ -27,6 +27,7 @@ jQuery plugin としても使用可能です。
     $( "#touch-example" ).nazeru( { touchEnd: touchEnd } );
     
 # API
+Docs [http://taikiken.github.io/nazeru.js/](http://taikiken.github.io/nazeru.js/)
 
 - threshold  
 Number  
